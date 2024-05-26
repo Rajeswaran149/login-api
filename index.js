@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require("mongoose");
+const cors = require('cors');
 const authRoutes =require('./routes/auth.js');
 
 
@@ -10,7 +11,9 @@ dotenv.config()
 
 const app = express()
 
-
+app.use(cors({
+    origin: '*'
+}))
 app.use(bodyParser.json())
 
 // connect to mongodb
