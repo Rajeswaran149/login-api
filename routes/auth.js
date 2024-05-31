@@ -9,7 +9,7 @@ router.post('/signup' ,async (req,res) => {
     try{
        const hashedPassword = await bcrypt.hash(req.body.password , 10);
        const user = new User ({
-           username : req.body.username,
+           email : req.body.email,
            password : hashedPassword
        })
        await user.save();
@@ -23,11 +23,11 @@ router.post('/signup' ,async (req,res) => {
 
 router.post('/login' , async (req , res) => {
   try {
-    const {username,password} = req.body;
-    const user = await User.findOne({ username });
+    const {email,password} = req.body;
+    const user = await User.findOne({ email });
 
     if (!user) {
-        return res.status(400).json({msg : 'invalid username'});
+        return res.status(400).json({msg : 'invalid email'});
     }
     const match = await bcrypt.compare( password , user.password );
 
